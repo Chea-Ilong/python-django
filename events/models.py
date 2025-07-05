@@ -1,12 +1,13 @@
 from django.db import models
-from django.conf import settings
+from authentications.models import User
 from django.core.validators import FileExtensionValidator
 from site_setting.models import PricingPlan, InvitationTemplates
+from site_setting.models import Icon
 
 # Create your models here.
 class Events(models.Model):
-    admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    team_members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='events_as_team_member', blank=True)
+    admin = models.ForeignKey(User, on_delete=models.CASCADE)
+    team_members = models.ManyToManyField(User, related_name='events_as_team_member', blank=True)
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     date = models.DateField(blank=True, null=True)
@@ -48,24 +49,24 @@ class Events(models.Model):
         default='wedding'
     )
 
-    def visit_count(self):
-        return self.visits.count()
+    # def visit_count(self):
+    #     return self.visits.count()
     
-    visit_count.short_description = "Visit Count"
+    # visit_count.short_description = "Visit Count"
 
-    def count_guests_coming(self):
-        return self.rsvp_set.filter(attending=True).count()
+    # def count_guests_coming(self):
+    #     return self.rsvp_set.filter(attending=True).count()
     
-    def count_guests_not_coming(self):
-        return self.rsvp_set.filter(attending=False).count()
+    # def count_guests_not_coming(self):
+    #     return self.rsvp_set.filter(attending=False).count()
     
-    def count_comments(self):
-        return self.comments.count()
+    # def count_comments(self):
+    #     return self.comments.count()
     
-    def count_reviews(self):
-        return self.reviews.count()
+    # def count_reviews(self):
+    #     return self.reviews.count()
     
-    def str(self):
+    def __str__(self):
         return self.title
 
 
@@ -84,3 +85,46 @@ class EventPhoto(models.Model):
 
     def str(self):
         return f"{self.event.title} - {self.order}"
+    
+class Host(models.Model):
+    event = models.ForeignKey(Events, related_name='host', on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='host_avatars/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def str(self):    
+        return self.event.title
+
+
+class HostNames(models.Model):
+    host = models.ForeignKey(Host, on_delete=models.CASCADE, related_name='host_names')
+    language = models.CharField(max_length=10, default='en')
+    host_name = models.CharField(max_length=100, blank=True, null=True)
+    parent_a_name = models.CharField(max_length=100, blank=True, null=True)
+    parent_b_name = models.CharField(max_length=100, blank=True, null=True)
+
+    def str(self):    
+        return f"Event: {self.host.event.title} - {self.host_name} - ({self.language})"
+
+
+class Agenda(models.Model):
+    event = models.ForeignKey(Events, on_delete=models.CASCADE, related_name='agenda')
+    date = models.DateField()
+    class Meta:
+        unique_together = ('event', 'date')
+        ordering = ['event', 'date']
+
+    def str(self):
+        return f"{self.event.title} - Day {self.date}"
+
+
+class AgendaDetail(models.Model):
+    agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE, related_name='agenda_detail')
+    language = models.CharField(max_length=10, default='en', help_text='e.g: kh, en, cn')
+    agenda_detail = models.CharField(max_length=100, blank=True, null=True)
+    time_text = models.CharField(max_length=100, blank=True, null=True)
+    order = models.PositiveSmallIntegerField(blank=True, null=True)
+    icon = models.ForeignKey(Icon, on_delete=models.SET_NULL, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def str(self):
+        return f"{self.agenda.event} - {self.agenda_detail} - {self.agenda.date} - ({self.language})"
