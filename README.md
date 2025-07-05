@@ -1,40 +1,9 @@
-
-# Django Authentication Project
-
-This is a Django-based web application designed to handle user authentication and related functionality.
-
-## Features
-
-- User registration and login
-- Token-based authentication using JWT
-- Profile view and update
-- Password reset and change
-- Modular Django app structure
-
-## Project Structure
-
-```
-revise/
-└── myproject/
-    ├── manage.py
-    ├── db.sqlite3
-    ├── requirements.txt
-    ├── authentications/
-    │   ├── admin.py
-    │   ├── apps.py
-    │   ├── models.py
-    │   ├── serializers.py
-    │   ├── urls.py
-    │   ├── views.py
-    │   └── ...
-```
-
-## Installation
+## 🚀 Installation
 
 1. **Clone the repository**:
 
     ```bash
-    git clone <repo-url>
+    git clone https://github.com/Chea-Ilong/python-django/
     cd myproject
     ```
 
@@ -42,8 +11,16 @@ revise/
 
     ```bash
     python -m venv venv
-    source venv/bin/activate  # On Windows use: venv\Scripts\activate
     ```
+
+    - **On Windows**:
+      ```bash
+      venv\Scripts\activate
+      ```
+    - **On Linux/macOS**:
+      ```bash
+      source venv/bin/activate 
+      ```
 
 3. **Install dependencies**:
 
@@ -63,46 +40,52 @@ revise/
     python manage.py runserver
     ```
 
+---
+
 ## 🧠 API Endpoints
 
 ### 🔐 Authentication
 
-| Method | Endpoint                       | Description                       | Auth Required  |
-|--------|--------------------------------|-----------------------------------|----------------|
-| POST   | `/api/signup/`                 | Register a new user               | ❌ No          |
-| POST   | `/api/login/`                  | Log in and obtain token           | ❌ No          |
-| POST   | `/api/logout/`                 | Log out the current user          | ✅ Yes         |
+| Method | Endpoint            | Description                       |
+|--------|---------------------|-----------------------------------|
+| POST   | `/api/signup/`      | Register a new user               |
+| POST   | `/api/login/`       | Log in and obtain token           |
+| POST   | `/api/logout/`      | Log out the current user          |
 
 ### 👤 User Profile
 
-| Method | Endpoint            | Description                      | Auth Required |
-|--------|---------------------|----------------------------------|----------------|
-| GET    | `/api/profile/`     | Get current user's profile       | ✅ Yes         |
-| PUT    | `/api/profile/`     | Update current user's profile    | ✅ Yes         |
-| PATCH  | `/api/profile/`     | Partially update user profile    | ✅ Yes         |
+| Method | Endpoint        | Description                      |
+|--------|-----------------|----------------------------------|
+| GET    | `/api/profile/` | Get current user's profile       |
+| PUT    | `/api/profile/` | Update current user's profile    |
+| PATCH  | `/api/profile/` | Partially update user profile    |
 
 ### 🔑 Password Management
 
-| Method | Endpoint                               | Description                                | Auth Required |
-|--------|----------------------------------------|--------------------------------------------|----------------|
-| POST   | `/api/password/change/`                | Change the current password                | ✅ Yes         |
-| POST   | `/api/password/reset/`                 | Send password reset email                  | ❌ No          |
-| POST   | `/api/password/reset/confirm/<uidb64>/<token>/` | Confirm password reset with token   | ❌ No          |
+| Method | Endpoint                                        | Description                                |
+|--------|-------------------------------------------------|--------------------------------------------|
+| POST   | `/api/password/change/`                         | Change the current password                |
+| POST   | `/api/password/reset/`                          | Send password reset email                  |
+| POST   | `/api/password/reset/confirm/<uidb64>/<token>/` | Confirm password reset with token          | 
 
 ### 🔁 JWT Token
 
-| Method | Endpoint          | Description                    | Auth Required |
-|--------|-------------------|--------------------------------|----------------|
-| POST   | `/api/token/verify/` | Verify validity of token     | ✅ Yes         |
+| Method | Endpoint             | Description                    |
+|--------|----------------------|--------------------------------|
+| POST   | `/api/token/verify/` | Verify validity of token       |
 
-## Requirements
+---
 
-- Python 3.8+
-- Django 3.2+ or 4.x
+## 📦 Requirements
+
+- Python 3.10+
+- Django 5.x
 - Django REST Framework
 - dj-rest-auth
 - djangorestframework-simplejwt
 
-## License
+---
+
+## 📜 License
 
 This project is licensed under the MIT License.
