@@ -21,10 +21,6 @@ class CustomFontSerializer(serializers.ModelSerializer):
         model = CustomFont
         fields = "__all__"
 
-class InvitationTemplatesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = InvitationTemplates
-        fields = "__all__"
 
 class TemplateColorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,6 +28,16 @@ class TemplateColorSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class TemplateFontNameSerializer(serializers.ModelSerializer):
+    font_name = serializers.CharField(source='font.name', read_only=True)
+    font_file = serializers.CharField(source='font.font_file', read_only=True)
     class Meta:
         model = TemplateFontName
-        fields = "__all__"       
+        fields = ['id', 'language', 'font', 'font_name', 'font_file']  
+             
+class InvitationTemplatesSerializer(serializers.ModelSerializer):
+    template_colors = TemplateColorSerializer(many=True, read_only=True)
+    template_font_name = TemplateFontNameSerializer(many=True, read_only=True)
+    package_plan = PricingPlanSerializer(read_only=True)
+    class Meta:
+        model = InvitationTemplates
+        fields = "__all__"
