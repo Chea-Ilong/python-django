@@ -15,26 +15,26 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-print(f"BASE DIR : {BASE_DIR}")
+# print(f"BASE DIR : {BASE_DIR}")
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(f"CORE DIR : {CORE_DIR}")
+# print(f"CORE DIR : {CORE_DIR}")
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-print(f"Staticfiles are served from: '{STATIC_URL}' - '{STATIC_ROOT}'")
+# print(f"Staticfiles are served from: '{STATIC_URL}' - '{STATIC_ROOT}'")
 # media files
 MEDIA_ROOT = os.path.join(CORE_DIR, 'media')
 MEDIA_URL = '/media/'
-print(f"Media files are served from: '{MEDIA_URL}' - '{MEDIA_ROOT}'")
+# print(f"Media files are served from: '{MEDIA_URL}' - '{MEDIA_ROOT}'")
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(CORE_DIR, 'apps/static'),
 )
 
 # Ensure the directory exists
-if not os.path.exists(STATICFILES_DIRS[0]):
-    print(f"Warning: STATICFILES_DIRS directory '{STATICFILES_DIRS[0]}' does not exist.")
+# if not os.path.exists(STATICFILES_DIRS[0]):
+#     print(f"Warning: STATICFILES_DIRS directory '{STATICFILES_DIRS[0]}' does not exist.")
 
 
 
@@ -151,7 +151,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -182,21 +182,24 @@ REST_AUTH = {
 }
 
 # Django Allauth configuration for email authentication
-ACCOUNT_EMAIL_VERIFICATION = 'none'  # Change to 'mandatory' if you want email verification
-
-# New allauth settings (replacing deprecated ones)
-ACCOUNT_LOGIN_METHODS = ['email']
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*', 'first_name', 'last_name']
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
 
 # JWT Configuration
+
 from datetime import timedelta
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),  # Add this if your frontend sends "Bearer <token>"
 }
 
 
 ALLOWED_HOSTS = ['*']  # use your IP here
 
 CORS_ALLOW_ALL_ORIGINS = True
+
