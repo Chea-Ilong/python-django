@@ -8,19 +8,21 @@ from site_setting.models import Icon
 class Events(models.Model):
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
     team_members = models.ManyToManyField(User, related_name='events_as_team_member', blank=True)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100 ) #
     description = models.TextField(blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
-    start_time = models.TimeField(blank=True, null=True)
-    end_time = models.TimeField(blank=True, null=True)
-    venue_name = models.CharField(max_length=200, blank=True, null=True)
+    date = models.DateField(null=True, blank=True)
+    start_time = models.TimeField(null=True, blank=True)
+    venue_name = models.CharField(max_length=255, null=True, blank=True)
+
+    
+    end_time = models.TimeField(blank=True, null=True) 
  
     google_map_embed_link = models.TextField(blank=True, null=True)
     youtube_embed_link = models.TextField(blank=True, null=True)
     video_message_embed_link = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_publish = models.BooleanField(default = False )
 
-    
     invitation_background_music = models.FileField(upload_to='music', validators=[FileExtensionValidator(allowed_extensions=['mp3'])], null=True, blank=True)
     logo_kh = models.ImageField(upload_to='logo', null=True, blank=True)
     logo_en = models.ImageField(upload_to='logo', null=True, blank=True)
@@ -128,3 +130,24 @@ class AgendaDetail(models.Model):
 
     def str(self):
         return f"{self.agenda.event} - {self.agenda_detail} - {self.agenda.date} - ({self.language})"
+    
+
+class InvitationText(models.Model):
+    event = models.ForeignKey(Events, on_delete=models.CASCADE, related_name='invitation_texts')
+    language = models.CharField(max_length=10, default='en')
+    time_text = models.TextField(blank=True, null=True)
+    date_text = models.TextField(blank=True, null=True)
+    location_text = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.event.title} - {self.language} invitation text"
+
+
+class InvitationSubText(models.Model):
+    invitation_text = models.ForeignKey(InvitationText, on_delete=models.CASCADE, related_name='invitation_sub_text')
+    sub_text = models.TextField(blank=True, null=True)
+    order = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.invitation_text.event.title} sub-text ({self.order})"
+     

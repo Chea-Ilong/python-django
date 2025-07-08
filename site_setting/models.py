@@ -82,6 +82,7 @@ class InvitationTemplates(models.Model):
     name = models.CharField(max_length=100)
     package_plan = models.ForeignKey(PricingPlan, on_delete=models.SET_NULL, blank=True, null=True)
     #
+    open_envelope_button = models.ImageField(upload_to= 'open_envelope_button', null =True, blank=True)
     basic_decoration_photo = models.ImageField(upload_to='basic_decorations_photo', null=True, blank=True)
     basic_backgorund_photo = models.ImageField(upload_to='basic_background_photo', null=True, blank=True)
     # Standard Assets

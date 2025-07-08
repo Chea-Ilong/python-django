@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     Events, EventSponsor, EventPhoto,
-    Host, HostNames, Agenda, AgendaDetail
+    Host, HostNames, Agenda, AgendaDetail, InvitationText, InvitationSubText
 )
 
 # 1. Inline for HostNames under Host
@@ -51,5 +51,7 @@ class AgendaAdmin(admin.ModelAdmin):
 admin.site.register(Events, EventsAdmin)
 admin.site.register(Host, HostAdmin)
 admin.site.register(Agenda, AgendaAdmin)
-
-
+admin.site.register(AgendaDetail)
+admin.site.register(HostNames)
+admin.site.register(InvitationText)
+admin.site.register(InvitationSubText)
