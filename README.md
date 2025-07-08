@@ -1,91 +1,68 @@
-## 🚀 Installation
+# Django URL Configuration
 
-1. **Clone the repository**:
+**Date:** July 6, 2025
 
-    ```bash
-    git clone https://github.com/Chea-Ilong/python-django/
-    cd myproject
-    ```
+This document outlines the URL routing configuration for a Django application with three main modules:
 
-2. **Create a virtual environment**:
-
-    ```bash
-    python -m venv venv
-    ```
-
-    - **On Windows**:
-      ```bash
-      venv\Scripts\activate
-      ```
-    - **On Linux/macOS**:
-      ```bash
-      source venv/bin/activate 
-      ```
-
-3. **Install dependencies**:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4. **Run migrations**:
-
-    ```bash
-    python manage.py migrate
-    ```
-
-5. **Start the development server**:
-
-    ```bash
-    python manage.py runserver
-    ```
+- `/auth/` – Handles authentication and user-related actions  
+- `/site_setting/` – Manages site content such as pricing plans, icons, team members, and invitation templates  
+- `/events/` – Handles CRUD operations for event management  
 
 ---
 
-## 🧠 API Endpoints
+## 1. Authentication Routes (`/auth/`)
 
-### 🔐 Authentication
+These routes are defined in the authentication app.
 
-| Method | Endpoint            | Description                       |
-|--------|---------------------|-----------------------------------|
-| POST   | `/api/signup/`      | Register a new user               |
-| POST   | `/api/login/`       | Log in and obtain token           |
-| POST   | `/api/logout/`      | Log out the current user          |
+### Signup  
+- `POST /auth/signup/`
 
-### 👤 User Profile
+### Login / Logout  
+- `POST /auth/login/`  
+- `POST /auth/logout/`
 
-| Method | Endpoint        | Description                      |
-|--------|-----------------|----------------------------------|
-| GET    | `/api/profile/` | Get current user's profile       |
-| PUT    | `/api/profile/` | Update current user's profile    |
-| PATCH  | `/api/profile/` | Partially update user profile    |
+### Profile  
+- `GET /auth/profile/`
 
-### 🔑 Password Management
+### Password Management  
+- `POST /auth/password/change/`  
+- `POST /auth/password/reset/`  
+- `POST /auth/password/reset/confirm/<uidb64>/<token>/`
 
-| Method | Endpoint                                        | Description                                |
-|--------|-------------------------------------------------|--------------------------------------------|
-| POST   | `/api/password/change/`                         | Change the current password                |
-| POST   | `/api/password/reset/`                          | Send password reset email                  |
-| POST   | `/api/password/reset/confirm/<uidb64>/<token>/` | Confirm password reset with token          | 
+### JWT Token Handling  
+- `POST /auth/token/verify/`  
+- `POST /auth/token/refresh/`
 
-### 🔁 JWT Token
-
-| Method | Endpoint             | Description                    |
-|--------|----------------------|--------------------------------|
-| POST   | `/api/token/verify/` | Verify validity of token       |
+### Google Social Auth  
+- `GET /auth/google/`
 
 ---
 
-## 📦 Requirements
+## 2. Site Settings Routes (`/site_setting/`)
 
-- Python 3.10+
-- Django 5.x
-- Django REST Framework
-- dj-rest-auth
-- djangorestframework-simplejwt
+These endpoints are generated using Django REST Framework routers and handle content management.
+
+### Registered ViewSets  
+- `GET / POST /site_setting/pricing-plans/`  
+- `GET / POST /site_setting/icons/`  
+- `GET / POST /site_setting/team-members/`  
+- `GET / POST /site_setting/invitation-templates/`
 
 ---
 
-## 📜 License
+## 3. Event Management Routes (`/events/`)
 
-This project is licensed under the MIT License.
+Event-related endpoints provided by a DRF ViewSet.
+
+- `GET / POST /events/`  
+- `GET / PUT / DELETE /events/<id>/`
+
+---
+
+## 4. Conclusion
+
+This configuration provides a clear and modular API structure, with separate routes for:
+
+- User authentication and authorization  
+- Site content management via DRF routers  
+- Full CRUD support for event handling  
