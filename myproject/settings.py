@@ -71,7 +71,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'corsheaders',  
     'rest_framework_simplejwt.token_blacklist',
-    'events'
+    'events',
+    'nested_admin'
 ]
 
 MIDDLEWARE = [

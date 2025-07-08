@@ -1,57 +1,58 @@
 from django.contrib import admin
+import nested_admin
 from .models import (
     Events, EventSponsor, EventPhoto,
     Host, HostNames, Agenda, AgendaDetail, InvitationText, InvitationSubText
 )
 
+# Add to INSTALLED_APPS in settings.py
+# 'nested_admin',
+
 # 1. Inline for HostNames under Host
-class HostNamesInline(admin.TabularInline):
+class HostNamesInline(nested_admin.NestedTabularInline):
     model = HostNames
     extra = 1
 
-# 2. Inline for Host under Events
-class HostInline(admin.StackedInline):
+# 2. Inline for Host under Events (with nested HostNames)
+class HostInline(nested_admin.NestedStackedInline):
     model = Host
     extra = 1
-    inlines = [HostNamesInline]  # Not directly supported like this
+    inlines = [HostNamesInline]  # Now nested inlines work!
 
 # 3. Inline for EventSponsor under Events
-class EventSponsorInline(admin.TabularInline):
+class EventSponsorInline(nested_admin.NestedTabularInline):
     model = EventSponsor
     extra = 1
 
 # 4. Inline for EventPhoto under Events
-class EventPhotoInline(admin.TabularInline):
+class EventPhotoInline(nested_admin.NestedTabularInline):
     model = EventPhoto
     extra = 1
 
 # 5. Inline for AgendaDetail under Agenda
-class AgendaDetailInline(admin.TabularInline):
+class AgendaDetailInline(nested_admin.NestedTabularInline):
     model = AgendaDetail
     extra = 1
 
-# 6. Inline for Agenda under Events
-class AgendaInline(admin.StackedInline):
+# 6. Inline for Agenda under Events (with nested AgendaDetail)
+class AgendaInline(nested_admin.NestedStackedInline):
     model = Agenda
     extra = 1
-
-class EventsAdmin(admin.ModelAdmin):
-    inlines = [EventSponsorInline, EventPhotoInline, AgendaInline, HostInline]
-    list_display = ['title', 'category', 'date', 'venue_name']
-
-class HostAdmin(admin.ModelAdmin):
-    inlines = [HostNamesInline]
-    list_display = ['event', 'created_at']
-
-class AgendaAdmin(admin.ModelAdmin):
     inlines = [AgendaDetailInline]
-    list_display = ['event', 'date']
+
+# 7. Inline for InvitationSubText under InvitationText
+class InvitationSubTextInline(nested_admin.NestedTabularInline):
+    model = InvitationSubText
+    extra = 1
+
+# 8. Inline for InvitationText under Events (with nested InvitationSubText)
+class InvitationTextInline(nested_admin.NestedStackedInline):
+    model = InvitationText
+    extra = 1
+    inlines = [InvitationSubTextInline]
+
+class EventsAdmin(nested_admin.NestedModelAdmin):
+    inlines = [EventSponsorInline, EventPhotoInline, AgendaInline, HostInline, InvitationTextInline]
 
 # Registering models
 admin.site.register(Events, EventsAdmin)
-admin.site.register(Host, HostAdmin)
-admin.site.register(Agenda, AgendaAdmin)
-admin.site.register(AgendaDetail)
-admin.site.register(HostNames)
-admin.site.register(InvitationText)
-admin.site.register(InvitationSubText)

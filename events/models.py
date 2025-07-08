@@ -50,23 +50,6 @@ class Events(models.Model):
         choices=CATEGORY_CHOICES,
         default='wedding'
     )
-
-    # def visit_count(self):
-    #     return self.visits.count()
-    
-    # visit_count.short_description = "Visit Count"
-
-    # def count_guests_coming(self):
-    #     return self.rsvp_set.filter(attending=True).count()
-    
-    # def count_guests_not_coming(self):
-    #     return self.rsvp_set.filter(attending=False).count()
-    
-    # def count_comments(self):
-    #     return self.comments.count()
-    
-    # def count_reviews(self):
-    #     return self.reviews.count()
     
     def __str__(self):
         return self.title
