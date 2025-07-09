@@ -12,6 +12,19 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+# Load environment-specific .env file
+environment = os.getenv('DJANGO_ENV', 'development')
+env_file = f'.env.{environment}'
+
+if os.path.exists(env_file):
+    load_dotenv(env_file)
+else:
+    load_dotenv()  # fallback to .env
+    
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-fallback-key')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -42,12 +55,12 @@ STATICFILES_DIRS = (
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-oj4af0!odjy$2o3v&al@5@y2ly_+*z9ica@6@7m@2_-a(=0i)%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
 
 # Application definition
 
@@ -72,7 +85,8 @@ INSTALLED_APPS = [
     'corsheaders',  
     'rest_framework_simplejwt.token_blacklist',
     'events',
-    'nested_admin'
+    'nested_admin',
+    
 ]
 
 MIDDLEWARE = [
@@ -85,6 +99,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'authentications.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -116,8 +131,22 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',                                                                                                                                                                                                                                                                                                                            
+    'allauth.account.auth_backends.AuthenticationBackend',  # Django Allauth backend
+)
 
-
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP':  {
+            'client_id': GOOGLE_CLIENT_ID,
+            'secret': GOOGLE_CLIENT_SECRET,
+            'key': ''   
+        }
+    }
+}
+            
+                                                                                                                                                                                      
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 

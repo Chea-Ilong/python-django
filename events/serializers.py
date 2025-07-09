@@ -54,9 +54,11 @@ class EventPhotoSerializer(serializers.ModelSerializer):
 
 class EventsSerializer(serializers.ModelSerializer):
     admin = serializers.StringRelatedField(read_only=True)
+    team_members = UserSerializer(many=True, read_only=True)
+
     class Meta:
         model = Events
-        fields = ['id', 'admin', 'title', 'date','venue_name','category', 'is_publish']
+        fields = ['id','team_members', 'admin', 'title', 'date','venue_name','category', 'is_publish']
 
     def create(self, validated_data):
         request = self.context.get('request')

@@ -23,7 +23,4 @@ urlpatterns = [
     # JWT
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('token/refresh/', get_refresh_view().as_view(), name='token_refresh'),
-
-    # Social Auth
-    path('google/', include('allauth.socialaccount.providers.google.urls')),
 ]

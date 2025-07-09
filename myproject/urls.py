@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authentications.urls')),
     path('site_setting/', include('site_setting.urls')),
-    path('events/', include('events.urls'))
+    path('events/', include('events.urls')),
+    path('accounts/', include('allauth.urls')),  # Add comma here
 ]
 
 if settings.DEBUG:
