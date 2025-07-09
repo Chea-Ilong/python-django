@@ -31,8 +31,6 @@ class EventsViewSet(viewsets.ModelViewSet):
             return EventsDetailSerializer
         return EventsDetailSerializer
 
-    
-    
     def list(self, request):
      queryset = self.get_queryset()
      serializer = self.get_serializer(queryset, many=True)
