@@ -41,4 +41,16 @@ class EventsViewSet(viewsets.ModelViewSet):
             raise PermissionDenied("You must be logged in to create an event.")
         serializer.save(admin=self.request.user)
         
+    # def vendor_published_events(self, request):
+    #     """
+    #     Get count of published events created by vendors 
+    #     """
+    #     published_events = (
+    #         Events.objects.filter(is_publish=True)
+    #         .values('package_plan__name')
+    #         .annotate(event_count=Count('id'))
+    #     )
+    #     return Response(published_events)
+    
+        
       

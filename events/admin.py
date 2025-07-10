@@ -2,12 +2,14 @@ from django.contrib import admin
 import nested_admin
 from .models import (
     Events, EventSponsor, EventPhoto,
-    Host, HostNames, Agenda, AgendaDetail, InvitationText, InvitationSubText
+    Host, HostNames, Agenda, AgendaDetail, InvitationText, InvitationSubText, WeddingGiftPaymentMethod
 )
 
 # Add to INSTALLED_APPS in settings.py
 # 'nested_admin',
-
+class WeddingGiftPaymentMethodInline(nested_admin.NestedTabularInline):
+    model = WeddingGiftPaymentMethod
+    extra = 1
 # 1. Inline for HostNames under Host
 class HostNamesInline(nested_admin.NestedTabularInline):
     model = HostNames
@@ -52,7 +54,7 @@ class InvitationTextInline(nested_admin.NestedStackedInline):
     inlines = [InvitationSubTextInline]
 
 class EventsAdmin(nested_admin.NestedModelAdmin):
-    inlines = [EventSponsorInline, EventPhotoInline, AgendaInline, HostInline, InvitationTextInline]
+    inlines = [EventSponsorInline, EventPhotoInline, AgendaInline, HostInline, InvitationTextInline, WeddingGiftPaymentMethodInline]
 
 # Registering models
 admin.site.register(Events, EventsAdmin)

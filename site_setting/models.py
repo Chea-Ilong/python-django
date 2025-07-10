@@ -86,7 +86,6 @@ class InvitationTemplates(models.Model):
     basic_decoration_photo = models.ImageField(upload_to='basic_decorations_photo', null=True, blank=True)
     basic_backgorund_photo = models.ImageField(upload_to='basic_background_photo', null=True, blank=True)
     # Standard Assets
-    
     standard_cover_video = models.FileField(upload_to='standard_cover_video', null=True, blank=True)
     standard_background_video = models.FileField(upload_to='standard_background_video', null=True, blank=True)
 

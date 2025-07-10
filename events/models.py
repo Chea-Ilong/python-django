@@ -134,3 +134,15 @@ class InvitationSubText(models.Model):
     def __str__(self):
         return f"{self.invitation_text.event.title} sub-text ({self.order})"
      
+
+class WeddingGiftPaymentMethod(models.Model):
+   
+    event = models.ForeignKey(Events, on_delete=models.CASCADE, related_name='wedding_gift_methods')  
+    account_number = models.CharField(max_length=100, blank=True, null=True)
+    account_name = models.CharField(max_length=100, blank=True, null=True)
+    payment_url = models.URLField(blank=True, null=True)
+    qr_image = models.ImageField(upload_to='qr_image', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.event.title} - {self.account_name}"
+    

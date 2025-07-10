@@ -1,10 +1,14 @@
 from rest_framework import serializers
 from authentications.models import User
 from authentications.serializers import UserSerializer
-from .models import Events, EventSponsor, EventPhoto,Host,HostNames,Agenda, AgendaDetail, InvitationText,InvitationSubText
-from site_setting.serializers import InvitationTemplatesSerializer  # Create this if it doesn't exist
+from .models import Events, EventSponsor, EventPhoto,Host,HostNames,Agenda, AgendaDetail, InvitationText,InvitationSubText,WeddingGiftPaymentMethod
+from site_setting.serializers import InvitationTemplatesSerializer 
 
-
+class WeddingGiftPaymentMethodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WeddingGiftPaymentMethod
+        fields = '__all__'
+        
 class InvitationSubTextSerializer(serializers.ModelSerializer):
     
     class Meta: 
@@ -76,7 +80,7 @@ class EventsDetailSerializer(serializers.ModelSerializer):
     agenda = AgendaSerializer(many=True, read_only=True)
     invitation_template = InvitationTemplatesSerializer(read_only=True)
     invitation_texts = InvitationTextSerializer(many=True, read_only=True) 
-    
+    wedding_gift_methods = WeddingGiftPaymentMethodSerializer(many=True, read_only=True)
     class Meta:
         model = Events
         fields = '__all__'
