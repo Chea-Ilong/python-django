@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome Home - JingJang{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-red-50"></div>
+    <div class="relative px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24">
+        <div class="max-w-7xl mx-auto text-center">
+            <!-- Welcome Badge -->
+            <div class="mb-4 sm:mb-6 md:mb-8 inline-flex items-center rounded-full bg-red-50 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-red-600 ring-1 ring-inset ring-red-200">
+                <span class="mr-2">👋</span>
+                <span class="hidden sm:inline">Welcome back, </span>{{ user.username|default:"Guest" }}!
+            </div>
+            
+            <!-- Main Heading -->
+            <h1 class="mx-auto max-w-4xl text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+                <span class="block mb-1 sm:mb-2" style="background: linear-gradient(135deg, #393633 0%, #fd0300 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #393633;">
+                    Your Productivity
+                </span>
+                <span class="block" style="background: linear-gradient(135deg, #fd0300 0%, #393633 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #fd0300;">
+                    Journey Starts Here
+                </span>
+            </h1>
+            
+            <!-- Subtitle -->
+            <p class="mx-auto mt-3 sm:mt-4 md:mt-6 max-w-2xl text-sm sm:text-base lg:text-lg xl:text-xl leading-relaxed text-gray-600 px-2 sm:px-4">
+                Transform your daily tasks into achievements with our beautifully designed, 
+                intuitive task management system that adapts to your workflow.
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 justify-center px-4">
+                <a href="{% url 'todo' %}" 
+                   class="w-full sm:w-auto inline-flex items-center justify-center rounded-xl px-4 sm:px-6 md:px-8 py-3 sm:py-4 text-sm sm:text-base lg:text-lg font-semibold text-white shadow-lg transition-all duration-200 hover:transform hover:-translate-y-1 btn-hover" 
+                   style="background-color: #fd0300; min-width: 180px;">
+                    <span class="mr-2 sm:mr-3 text-base sm:text-lg md:text-xl">🚀</span>
+                    <span>View My Tasks</span>
+                </a>
+                
+                <a href="{% url 'profile' %}" 
+                   class="w-full sm:w-auto inline-flex items-center justify-center rounded-xl px-4 sm:px-6 md:px-8 py-3 sm:py-4 text-sm sm:text-base lg:text-lg font-semibold text-white shadow-lg transition-all duration-200 hover:transform hover:-translate-y-1 btn-hover" 
+                   style="background-color: #393633; min-width: 180px;">
+                    <span class="mr-2 sm:mr-3 text-base sm:text-lg md:text-xl">⚙️</span>
+                    <span>Manage Profile</span>
+                </a>
+            </div>
+            
+            <!-- Stats Preview -->
+            <div class="mt-12 sm:mt-16 grid grid-cols-3 gap-3 sm:gap-6 lg:gap-8 max-w-2xl mx-auto px-4">
+                <div class="rounded-2xl bg-white/80 backdrop-blur-sm p-3 sm:p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-xl sm:text-3xl font-bold text-red-600">24/7</div>
+                    <div class="text-xs sm:text-sm font-medium" style="color: #393633;">Always Available</div>
+                </div>
+                <div class="rounded-2xl bg-white/80 backdrop-blur-sm p-3 sm:p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-xl sm:text-3xl font-bold text-red-600">100%</div>
+                    <div class="text-xs sm:text-sm font-medium" style="color: #393633;">Secure & Private</div>
+                </div>
+                <div class="rounded-2xl bg-white/80 backdrop-blur-sm p-3 sm:p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-xl sm:text-3xl font-bold text-red-600">∞</div>
+                    <div class="text-xs sm:text-sm font-medium" style="color: #393633;">Unlimited Tasks</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-12 sm:py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="mx-auto max-w-2xl text-center mb-12 sm:mb-16">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-4" style="color: #393633;">
+                Why Choose JingJang?
+            </h2>
+            <p class="text-base sm:text-lg leading-relaxed text-gray-600">
+                Discover the features that make task management effortless and enjoyable
+            </p>
+        </div>
+        
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <!-- Feature 1 -->
+            <div class="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+                <div class="absolute inset-0 bg-gradient-to-br from-red-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative">
+                    <div class="mb-4 sm:mb-6 inline-flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-xl sm:rounded-2xl bg-red-50 text-2xl sm:text-3xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+                        📋
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 group-hover:text-red-600 transition-colors" style="color: #393633;">
+                        Smart Organization
+                    </h3>
+                    <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+                        Intelligent categorization and prioritization keep your tasks organized automatically, 
+                        so you can focus on what matters most.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+                <div class="absolute inset-0 bg-gradient-to-br from-red-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative">
+                    <div class="mb-4 sm:mb-6 inline-flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-xl sm:rounded-2xl bg-red-50 text-2xl sm:text-3xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+                        🎨
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 group-hover:text-red-600 transition-colors" style="color: #393633;">
+                        Beautiful Design
+                    </h3>
+                    <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+                        A carefully crafted interface that's both stunning and functional, 
+                        making productivity feel like a pleasure rather than a chore.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+                <div class="absolute inset-0 bg-gradient-to-br from-red-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative">
+                    <div class="mb-4 sm:mb-6 inline-flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-xl sm:rounded-2xl bg-red-50 text-2xl sm:text-3xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+                        📱
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 group-hover:text-red-600 transition-colors" style="color: #393633;">
+                        Fully Responsive
+                    </h3>
+                    <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+                        Seamless experience across all devices - desktop, tablet, or mobile. 
+                        Your productivity travels with you wherever you go.
+                    </p>
+                </div>
+            </div>
+            
+         
+</section>
+
+        
+       
+
+<!-- Call to Action Section -->
+<section class="py-12 sm:py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl p-8 sm:p-12 lg:p-16" style="background: linear-gradient(135deg, #393633 0%, #fd0300 100%);">
+            <div class="absolute inset-0 bg-black/10"></div>
+            <div class="relative mx-auto max-w-4xl text-center">
+                <div class="mb-6 sm:mb-8 text-4xl sm:text-5xl lg:text-6xl">🎯</div>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-white mb-4 sm:mb-6">
+                    Ready to Transform Your Productivity?
+                </h2>
+                <p class="text-base sm:text-lg lg:text-xl text-white/90 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Join thousands of users who have already revolutionized their daily workflow 
+                    with JingJang's intuitive task management system.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                    <a href="{% url 'todo' %}" 
+                       class="w-full sm:w-auto inline-flex items-center justify-center rounded-xl bg-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-red-600 shadow-lg transition-all duration-200 hover:bg-gray-50 hover:shadow-xl hover:-translate-y-1" 
+                       style="min-width: 200px;">
+                        <span class="mr-2 sm:mr-3 text-lg sm:text-xl">🚀</span>
+                        Start Your Journey
+                    </a>
+                    <a href="{% url 'profile' %}" 
+                       class="w-full sm:w-auto inline-flex items-center justify-center rounded-xl border-2 border-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white transition-all duration-200 hover:bg-white hover:text-red-600 hover:-translate-y-1" 
+                       style="min-width: 200px;">
+                        <span class="mr-2 sm:mr-3 text-lg sm:text-xl">⚙️</span>
+                        Customize Experience
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
