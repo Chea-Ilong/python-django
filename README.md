@@ -2,11 +2,9 @@
 
 A beautifully designed Django web application for task management with a unique journal/scrapbook aesthetic. Transform your daily tasks into achievements with an intuitive, visually appealing interface that feels like writing in your personal notebook.
 
-> **Live Demo**: Experience the magic of digital journaling with task management!
-
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Django](https://img.shields.io/badge/Django-4.2.23-green.svg)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0+-blue.svg)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1+-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## ✨ Features
@@ -31,23 +29,147 @@ A beautifully designed Django web application for task management with a unique 
 ## 🛠️ Tech Stack
 
 - **Backend**: Django 4.2.23
-- **Frontend**: HTML, CSS (Tailwind CSS), JavaScript
+- **Frontend**: HTML, CSS (Tailwind CSS 4.1+), JavaScript
 - **Database**: SQLite (default) / MySQL (configurable)
 - **Authentication**: Django's built-in auth system
 - **Email**: SMTP support for notifications
+- **Styling**: Tailwind CSS with PostCSS compilation
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
 - Python 3.8 or higher
-- pip (Python package installer)
+- Node.js 16 or higher
+- npm (comes with Node.js)
 - Git
 
-### Installation
+### One-Command Setup 🎯
+
+The easiest way to get started:
+
+```bash
+git clone https://github.com/Chea-Ilong/python-django.git
+cd python-django
+./setup.sh
+```
+
+That's it! The setup script will automatically:
+- Create and activate a virtual environment
+- Install all Python dependencies
+- Install Node.js dependencies
+- Compile Tailwind CSS
+- Set up the database
+- Create default users
+- Load sample data
+
+### Manual Installation
+
+If you prefer to set up manually:
 
 1. **Clone the repository**
    ```bash
+   git clone https://github.com/Chea-Ilong/python-django.git
+   cd python-django
+   ```
+
+2. **Create virtual environment**
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
+
+3. **Install Python dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Navigate to project directory**
+   ```bash
+   cd Testing
+   ```
+
+5. **Install and build Tailwind CSS**
+   ```bash
+   cd theme/static_src
+   npm install
+   npm run build
+   cd ../..
+   ```
+
+6. **Set up database**
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+
+7. **Create superuser**
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+8. **Run the development server**
+   ```bash
+   python manage.py runserver
+   ```
+
+## 🔑 Default Credentials
+
+After running the setup script, you can use these credentials:
+
+- **Admin User**: `admin` / `admin123`
+- **Demo User**: `demo` / `demo123`
+
+## 🌐 URLs
+
+- **Main App**: http://127.0.0.1:8000/
+- **Admin Panel**: http://127.0.0.1:8000/admin/
+- **Signup**: http://127.0.0.1:8000/signup/
+
+## 🛠️ Development
+
+### Running the Development Server
+
+```bash
+# Activate virtual environment
+source .venv/bin/activate
+
+# Navigate to project
+cd Testing
+
+# Start Django server
+python manage.py runserver
+```
+
+### Tailwind CSS Development
+
+For real-time CSS compilation during development:
+
+```bash
+cd Testing/theme/static_src
+npm run dev
+```
+
+This will watch for changes and automatically recompile CSS.
+
+### Common Commands
+
+```bash
+# Create new migration
+python manage.py makemigrations
+
+# Apply migrations
+python manage.py migrate
+
+# Create superuser
+python manage.py createsuperuser
+
+# Collect static files (for production)
+python manage.py collectstatic
+
+# Build production CSS
+cd theme/static_src && npm run build
+```
    git clone https://github.com/Chea-Ilong/python-django.git
    cd python-django
    ```
